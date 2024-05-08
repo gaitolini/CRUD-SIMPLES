@@ -103,10 +103,20 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="dataModule.main.pas">
-            <Form>DataModule1</Form>
+            <Form>dmCrudSimples</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="view.crud.generico.pas">
+            <Form>ViewCrudFullGenerica</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="model.aluno.pas"/>
+        <DCCReference Include="dao.aluno.pas"/>
+        <DCCReference Include="model.vendaItem.pas"/>
+        <DCCReference Include="dao.vendaItem.pas"/>
+        <DCCReference Include="model.venda.pas"/>
+        <DCCReference Include="dao.venda.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
