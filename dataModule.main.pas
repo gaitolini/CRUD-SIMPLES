@@ -8,7 +8,8 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   Data.DB, FireDAC.Comp.Client, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
   FireDAC.Stan.ExprFuncs, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
-  FireDAC.DApt, FireDAC.Comp.DataSet, System.Variants;
+  FireDAC.DApt, FireDAC.Comp.DataSet, System.Variants, FireDAC.VCLUI.Error,
+  FireDAC.Comp.UI;
 
 type
   TdmCrudSimples = class(TDataModule)
@@ -62,9 +63,6 @@ type
     qryVendaItemID_VendaItem: TFDAutoIncField;
     qryVendaItemID_Material: TIntegerField;
     qryVendaItemQuantidade: TIntegerField;
-    qryVendaItemValor_VendaItem: TFloatField;
-    qryVendaItemPeso_VendaItem: TFloatField;
-    qryVendaItemNomeMaterial: TStringField;
     qryVendaItemID_Venda: TIntegerField;
     qryVendaPeso_Venda: TFloatField;
     qryVendaValor_TotalCompra: TFloatField;
@@ -101,8 +99,28 @@ type
     qryConsultaVendaALUNO_NOME: TWideStringField;
     qryConsultaVendaUNIDADE_NOME: TWideStringField;
     qryConsultaVendaSTATUS_VENDA: TWideStringField;
+    qryVendaItemValor_VendaItem: TCurrencyField;
+    qryVendaItemPeso_VendaItem: TFloatField;
+    FDSQLiteCollation1: TFDSQLiteCollation;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDGUIxErrorDialog1: TFDGUIxErrorDialog;
+    qryVendaItemMaterialDesc: TWideStringField;
+    qryConsultaVendaItem: TFDQuery;
+    dsConsultaVendaItem: TDataSource;
+    qryVendaItemValor_TotalItem: TCurrencyField;
+    Transaction: TFDTransaction;
+    qryConsultaVendaItemID_VendaItem: TFDAutoIncField;
+    qryConsultaVendaItemID_Material: TIntegerField;
+    qryConsultaVendaItemID_Venda: TIntegerField;
+    qryConsultaVendaItemQuantidade: TIntegerField;
+    qryConsultaVendaItemValor_VendaItem: TCurrencyField;
+    qryConsultaVendaItemValor_TotalItem: TCurrencyField;
+    qryConsultaVendaItemPeso_VendaItem: TFloatField;
+    qryConsultaVendaItemMaterialDesc: TWideStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure qryVendaAfterPost(DataSet: TDataSet);
+    procedure FDGUIxErrorDialog1Show(ASender: TObject;
+      AException: EFDDBEngineException);
   private
     { Private declarations }
   public
@@ -130,9 +148,16 @@ begin
     qryMaterial.Active := True;
     qryEntrega.Active := True;
     qryConsultaVenda.Active := True;
+    qryConsultaVendaItem.Active := True;
 
   except on E: Exception do
   end;
+end;
+
+procedure TdmCrudSimples.FDGUIxErrorDialog1Show(ASender: TObject;
+  AException: EFDDBEngineException);
+begin
+  //
 end;
 
 procedure TdmCrudSimples.qryVendaAfterPost(DataSet: TDataSet);

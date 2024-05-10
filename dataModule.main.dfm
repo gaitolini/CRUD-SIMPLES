@@ -1,7 +1,7 @@
 object dmCrudSimples: TdmCrudSimples
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 371
+  Height = 552
   Width = 438
   object connectionSQL: TFDConnection
     Params.Strings = (
@@ -20,12 +20,15 @@ object dmCrudSimples: TdmCrudSimples
   end
   object dsVenda: TDataSource
     DataSet = qryVenda
-    Left = 352
-    Top = 176
+    Left = 376
+    Top = 136
   end
   object qryVenda: TFDQuery
     AfterPost = qryVendaAfterPost
+    CachedUpdates = True
     Connection = connectionSQL
+    Transaction = Transaction
+    UpdateTransaction = Transaction
     SQL.Strings = (
       'SELECT V.*,'
       
@@ -39,8 +42,8 @@ object dmCrudSimples: TdmCrudSimples
         'V.ID_STATUSVENDA) STATUS_VENDA'
       ' FROM VENDA V'
       'WHERE ID_STATUSVENDA = :PID_STATUSVENDA ')
-    Left = 280
-    Top = 176
+    Left = 304
+    Top = 136
     ParamData = <
       item
         Name = 'PID_STATUSVENDA'
@@ -54,22 +57,28 @@ object dmCrudSimples: TdmCrudSimples
       Origin = 'ID_Venda'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
+      DisplayFormat = '000'
     end
     object qryVendaValor_Juros: TFloatField
+      DisplayLabel = 'Juros'
       FieldName = 'Valor_Juros'
       Origin = 'Valor_Juros'
       currency = True
     end
     object qryVendaValor_Desconto: TFloatField
+      DisplayLabel = 'Desconto'
       FieldName = 'Valor_Desconto'
       Origin = 'Valor_Desconto'
       currency = True
     end
     object qryVendaValor_TotalCompra: TFloatField
+      DisplayLabel = 'Total de materiais'
       FieldName = 'Valor_TotalCompra'
       Origin = 'Valor_TotalCompra'
+      currency = True
     end
     object qryVendaValor_Final: TFloatField
+      DisplayLabel = 'Valor Total da Compra'
       FieldName = 'Valor_Final'
       Origin = 'Valor_Final'
       currency = True
@@ -86,11 +95,13 @@ object dmCrudSimples: TdmCrudSimples
       Origin = 'Data_Venda'
     end
     object qryVendaValor_Frete: TFloatField
+      DisplayLabel = 'Frete'
       FieldName = 'Valor_Frete'
       Origin = 'Valor_Frete'
       currency = True
     end
     object qryVendaPeso_Venda: TFloatField
+      DisplayLabel = 'Peso total'
       FieldName = 'Peso_Venda'
       Origin = 'Peso_Venda'
     end
@@ -269,11 +280,14 @@ object dmCrudSimples: TdmCrudSimples
   end
   object qryEntrega: TFDQuery
     Active = True
+    CachedUpdates = True
     Connection = connectionSQL
+    Transaction = Transaction
+    UpdateTransaction = Transaction
     SQL.Strings = (
       'SELECT * FROM MATERIAL')
-    Left = 280
-    Top = 48
+    Left = 304
+    Top = 8
     object qryEntregaID_Material: TFDAutoIncField
       FieldName = 'ID_Material'
       Origin = 'ID_Material'
@@ -302,8 +316,8 @@ object dmCrudSimples: TdmCrudSimples
   end
   object dsEntrega: TDataSource
     DataSet = qryEntrega
-    Left = 352
-    Top = 48
+    Left = 376
+    Top = 8
   end
   object dsUF: TDataSource
     DataSet = qryUF
@@ -337,8 +351,8 @@ object dmCrudSimples: TdmCrudSimples
   end
   object dsVendaItem: TDataSource
     DataSet = qryVendaItem
-    Left = 352
-    Top = 112
+    Left = 376
+    Top = 72
   end
   object qryVendaItem: TFDQuery
     CachedUpdates = True
@@ -346,14 +360,31 @@ object dmCrudSimples: TdmCrudSimples
     MasterFields = 'ID_Venda'
     DetailFields = 'ID_Venda'
     Connection = connectionSQL
+    Transaction = Transaction
+    UpdateTransaction = Transaction
+    FormatOptions.AssignedValues = [fvMapRules]
+    FormatOptions.OwnMapRules = True
+    FormatOptions.MapRules = <
+      item
+        SourceDataType = dtDouble
+        TargetDataType = dtCurrency
+      end
+      item
+        SourceDataType = dtInt64
+        TargetDataType = dtDouble
+      end>
     SQL.Strings = (
-      'SELECT * FROM VENDAITEM WHERE '
+      'SELECT VI.*, '
+      
+        '(SELECT M.NOME FROM MATERIAL M WHERE M.ID_MATERIAL = VI.ID_MATER' +
+        'IAL) MaterialDesc'
+      'FROM VENDAITEM VI WHERE '
       
         '(ID_Venda = :pID_Venda ) or (ID_Venda is not NULL AND :pID_Venda' +
         ' IS NULL)'
       '')
-    Left = 272
-    Top = 112
+    Left = 296
+    Top = 72
     ParamData = <
       item
         Name = 'PID_VENDA'
@@ -362,6 +393,7 @@ object dmCrudSimples: TdmCrudSimples
         Value = Null
       end>
     object qryVendaItemID_VendaItem: TFDAutoIncField
+      DisplayLabel = 'Venda Item'
       FieldName = 'ID_VendaItem'
       Origin = 'ID_VendaItem'
       ProviderFlags = [pfInWhere, pfInKey]
@@ -372,7 +404,17 @@ object dmCrudSimples: TdmCrudSimples
       FieldName = 'ID_Material'
       Origin = 'ID_Material'
     end
+    object qryVendaItemMaterialDesc: TWideStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Material Descri'#231#227'o'
+      FieldName = 'MaterialDesc'
+      Origin = 'Nome'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
     object qryVendaItemID_Venda: TIntegerField
+      DisplayLabel = 'Venda'
       FieldName = 'ID_Venda'
       Origin = 'ID_Venda'
     end
@@ -381,38 +423,33 @@ object dmCrudSimples: TdmCrudSimples
       Origin = 'Quantidade'
       EditFormat = '0000000000'
     end
-    object qryVendaItemValor_VendaItem: TFloatField
+    object qryVendaItemValor_VendaItem: TCurrencyField
       DisplayLabel = 'Valor unit'#225'rio'
       FieldName = 'Valor_VendaItem'
       Origin = 'Valor_VendaItem'
-      currency = True
-      Precision = 2
+    end
+    object qryVendaItemValor_TotalItem: TCurrencyField
+      DisplayLabel = 'Valor total'
+      FieldName = 'Valor_TotalItem'
+      Origin = 'Valor_TotalItem'
     end
     object qryVendaItemPeso_VendaItem: TFloatField
       DisplayLabel = 'Peso'
       FieldName = 'Peso_VendaItem'
       Origin = 'Peso_VendaItem'
-      Precision = 2
-    end
-    object qryVendaItemNomeMaterial: TStringField
-      FieldKind = fkLookup
-      FieldName = 'NomeMaterial'
-      LookupDataSet = qryMaterial
-      LookupKeyFields = 'Nome'
-      LookupResultField = 'Nome'
-      KeyFields = 'ID_Material'
-      Size = 100
-      Lookup = True
     end
   end
   object dsTipoEntrega: TDataSource
     DataSet = qryTipoEntrega
-    Left = 344
-    Top = 232
+    Left = 368
+    Top = 192
   end
   object qryTipoEntrega: TFDQuery
     Active = True
+    CachedUpdates = True
     Connection = connectionSQL
+    Transaction = Transaction
+    UpdateTransaction = Transaction
     FormatOptions.AssignedValues = [fvMapRules]
     FormatOptions.OwnMapRules = True
     FormatOptions.MapRules = <
@@ -422,8 +459,8 @@ object dmCrudSimples: TdmCrudSimples
       end>
     SQL.Strings = (
       'SELECT * FROM TIPOENTREGA')
-    Left = 272
-    Top = 232
+    Left = 296
+    Top = 192
     object qryTipoEntregaID_TipoEntrega: TFDAutoIncField
       FieldName = 'ID_TipoEntrega'
       Origin = 'ID_TipoEntrega'
@@ -438,11 +475,15 @@ object dmCrudSimples: TdmCrudSimples
   end
   object dsStatusVenda: TDataSource
     DataSet = qryStatuVenda
-    Left = 344
-    Top = 296
+    Left = 368
+    Top = 256
   end
   object qryStatuVenda: TFDQuery
+    Active = True
+    CachedUpdates = True
     Connection = connectionSQL
+    Transaction = Transaction
+    UpdateTransaction = Transaction
     FormatOptions.AssignedValues = [fvMapRules]
     FormatOptions.OwnMapRules = True
     FormatOptions.MapRules = <
@@ -452,8 +493,8 @@ object dmCrudSimples: TdmCrudSimples
       end>
     SQL.Strings = (
       'SELECT * FROM statusvenda')
-    Left = 272
-    Top = 296
+    Left = 296
+    Top = 256
     object qryStatuVendaID_StatusVenda: TFDAutoIncField
       FieldName = 'ID_StatusVenda'
       Origin = 'ID_StatusVenda'
@@ -467,8 +508,12 @@ object dmCrudSimples: TdmCrudSimples
     end
   end
   object qryConsultaVenda: TFDQuery
+    Active = True
     AfterPost = qryVendaAfterPost
+    CachedUpdates = True
     Connection = connectionSQL
+    Transaction = Transaction
+    UpdateTransaction = Transaction
     SQL.Strings = (
       'SELECT V.*,'
       
@@ -483,8 +528,8 @@ object dmCrudSimples: TdmCrudSimples
       ' FROM VENDA V'
       'WHERE ID_STATUSVENDA = :PID_STATUSVENDA '
       'AND V.ID_STATUSVENDA = 1')
-    Left = 136
-    Top = 80
+    Left = 304
+    Top = 336
     ParamData = <
       item
         Name = 'PID_STATUSVENDA'
@@ -502,6 +547,7 @@ object dmCrudSimples: TdmCrudSimples
       FieldName = 'ID_Venda'
       Origin = 'ID_Venda'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryConsultaVendaID_Unidade: TIntegerField
       DisplayLabel = 'Unidade'
@@ -588,7 +634,110 @@ object dmCrudSimples: TdmCrudSimples
   end
   object dsConsultaVenda: TDataSource
     DataSet = qryConsultaVenda
-    Left = 208
-    Top = 80
+    Left = 376
+    Top = 336
+  end
+  object FDSQLiteCollation1: TFDSQLiteCollation
+    DriverLink = SQLiteDriverLink
+    Left = 176
+    Top = 184
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 168
+    Top = 240
+  end
+  object FDGUIxErrorDialog1: TFDGUIxErrorDialog
+    Provider = 'Forms'
+    OnShow = FDGUIxErrorDialog1Show
+    Left = 176
+    Top = 304
+  end
+  object qryConsultaVendaItem: TFDQuery
+    Active = True
+    CachedUpdates = True
+    MasterSource = dsVenda
+    MasterFields = 'ID_Venda'
+    DetailFields = 'ID_Venda'
+    Connection = connectionSQL
+    Transaction = Transaction
+    UpdateTransaction = Transaction
+    FormatOptions.AssignedValues = [fvMapRules]
+    FormatOptions.OwnMapRules = True
+    FormatOptions.MapRules = <
+      item
+        SourceDataType = dtDouble
+        TargetDataType = dtCurrency
+      end
+      item
+        SourceDataType = dtInt64
+        TargetDataType = dtDouble
+      end>
+    SQL.Strings = (
+      'SELECT VI.*, '
+      
+        '(SELECT M.NOME FROM MATERIAL M WHERE M.ID_MATERIAL = VI.ID_MATER' +
+        'IAL) MaterialDesc'
+      'FROM VENDAITEM VI WHERE '
+      
+        '(ID_Venda = :pID_Venda ) or (ID_Venda is not NULL AND :pID_Venda' +
+        ' IS NULL)'
+      '')
+    Left = 304
+    Top = 400
+    ParamData = <
+      item
+        Name = 'PID_VENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 2
+      end>
+    object qryConsultaVendaItemID_VendaItem: TFDAutoIncField
+      FieldName = 'ID_VendaItem'
+      Origin = 'ID_VendaItem'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object qryConsultaVendaItemID_Material: TIntegerField
+      FieldName = 'ID_Material'
+      Origin = 'ID_Material'
+    end
+    object qryConsultaVendaItemID_Venda: TIntegerField
+      FieldName = 'ID_Venda'
+      Origin = 'ID_Venda'
+    end
+    object qryConsultaVendaItemQuantidade: TIntegerField
+      FieldName = 'Quantidade'
+      Origin = 'Quantidade'
+    end
+    object qryConsultaVendaItemValor_VendaItem: TCurrencyField
+      FieldName = 'Valor_VendaItem'
+      Origin = 'Valor_VendaItem'
+    end
+    object qryConsultaVendaItemValor_TotalItem: TCurrencyField
+      FieldName = 'Valor_TotalItem'
+      Origin = 'Valor_TotalItem'
+    end
+    object qryConsultaVendaItemPeso_VendaItem: TFloatField
+      FieldName = 'Peso_VendaItem'
+      Origin = 'Peso_VendaItem'
+    end
+    object qryConsultaVendaItemMaterialDesc: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'MaterialDesc'
+      Origin = 'Nome'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+  end
+  object dsConsultaVendaItem: TDataSource
+    DataSet = qryConsultaVendaItem
+    Left = 384
+    Top = 400
+  end
+  object Transaction: TFDTransaction
+    Connection = connectionSQL
+    Left = 168
+    Top = 384
   end
 end

@@ -1,7 +1,4 @@
-﻿[qryVendaItemPeso_VendaItem]
-Coordinates=450,1,164,33
-
-[qryAlunoNome]
+﻿[qryAlunoNome]
 Coordinates=329,463,88,33
 
 [qryVendaID_Venda]
@@ -70,9 +67,6 @@ Coordinates=457,417,73,33
 [qryVendaValor_Final]
 Coordinates=456,469,116,33
 
-[qryVendaItemValor_VendaItem]
-Coordinates=652,157,166,33
-
 [qryVendaData_Pagto]
 Coordinates=456,521,117,33
 
@@ -99,9 +93,6 @@ Coordinates=328,698,120,33
 
 [dsVendaItem]
 Coordinates=151,608,78,33
-
-[qryVendaItemNomeMaterial]
-Coordinates=652,365,149,33
 
 [qryUnidadeNome]
 Coordinates=42,698,99,33
@@ -173,7 +164,7 @@ Coordinates=486,875,86,33
 Coordinates=856,157,156,33
 
 []
-Coordinates=856,105,138,33
+Coordinates=652,365,149,33
 
 [qryTipoEntregaID_TipoEntrega]
 Coordinates=229,206,166,33

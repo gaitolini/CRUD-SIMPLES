@@ -18,7 +18,8 @@ type
   TCrudAction = (caSelect, caInsert, caEdit, caDelete, caSalve, caSair, caCancelar);
   TVendaStatus = (vsVendaNova, vsVendendo, vsVendido);
 
-  TVendaAction = (vaFirst, vaPrior, vaNext, vaLast, vaInsert, vaDelete, vaEdit, vaPost, vaCancel, vaRefresh, vaApplyUpdates, vaCancelUpdates);
+  TVendaAction = (vaInsert, vaDelete, vaEdit, vaPost, vaCancel, vaRefresh, vaApplyUpdates, vaCancelUpdates, vaSelect, vaVendaItem);
+  TVendaItemAction = (viInsert, viDelete, viEdit, viPost, viCancel, viRefresh, viApplyUpdates, viCancelUpdates, viSelect, viVendaItem);
   TVendaActionSet = set of TVendaAction;
 
   TfrmMain = class(TForm)
@@ -87,57 +88,15 @@ type
     DBEdit9: TDBEdit;
     Label12: TLabel;
     DBEdit10: TDBEdit;
-    cardVendas: TCard;
-    pcVendaItem: TPageControl;
-    tsEntrega: TTabSheet;
     Label16: TLabel;
     Label23: TLabel;
-    Panel1: TPanel;
-    Label13: TLabel;
-    Label14: TLabel;
-    Label22: TLabel;
-    Label26: TLabel;
-    cbxUnidade: TDBLookupComboBox;
-    cbxAluno: TDBLookupComboBox;
-    tsItemVenda: TTabSheet;
-    Label24: TLabel;
-    Label25: TLabel;
-    Label27: TLabel;
-    Label30: TLabel;
-    cbxMaterial: TDBLookupComboBox;
-    lbPeso: TLabel;
-    Panel2: TPanel;
-    Button1: TButton;
-    Label17: TLabel;
-    edtValorTotalItem: TEdit;
-    edtQuantidade: TEdit;
-    Button3: TButton;
-    Button4: TButton;
-    Button5: TButton;
-    Label21: TLabel;
-    Label15: TLabel;
-    Label18: TLabel;
-    Label19: TLabel;
-    Label20: TLabel;
-    Label28: TLabel;
     cardVendaConsulta: TCard;
     DBGrid5: TDBGrid;
     Button2: TButton;
     DateTimePicker1: TDateTimePicker;
     btnFiltro: TButton;
     actVender: TAction;
-    edtDataVenda: TDateTimePicker;
-    edtDataPagto: TDateTimePicker;
-    cbxTipoEntrega: TComboBox;
-    edtVendaJuros: TEdit;
-    edtDesconto: TEdit;
-    edtFrete: TEdit;
-    edtVendaValorTotal: TEdit;
-    edtVendaPesoTotal: TEdit;
-    edtVendaValorFinal: TEdit;
-    lvVendaItem: TListView;
     actVenda_AddItem: TAction;
-    edtValorUnitario: TEdit;
     actRealizarVenda: TAction;
     DateTimePicker2: TDateTimePicker;
     actVenda: TAction;
@@ -152,7 +111,6 @@ type
     lcbAluno: TDBLookupComboBox;
     DBRadioGroup1: TDBRadioGroup;
     grConsultaVenda: TDBGrid;
-    ImageList1: TImageList;
     actVendaItem: TAction;
     actVenda_Nova: TAction;
     actVenda_Excluir: TAction;
@@ -168,7 +126,60 @@ type
     actVenda_Cancela: TAction;
     btnVenda_Cancela: TButton;
     btnVenda_Excluir: TButton;
-    actVenda_AddItem2: TAction;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    edtVendaItem_Quantidade: TDBEdit;
+    Label38: TLabel;
+    edtVendaItem_ValorUnitario: TDBEdit;
+    Label39: TLabel;
+    edtVendaItem_Peso: TDBEdit;
+    DBText1: TDBText;
+    DBGrid4: TDBGrid;
+    btnVendaItem_Remover: TButton;
+    actVendaItem_Add: TAction;
+    actVendaItem_remove: TAction;
+    actVendaItem_FinalVenda: TAction;
+    btnVendaItem_FinalVenda: TButton;
+    actVendaItem_Volta: TAction;
+    actVendaItem_Edita: TAction;
+    btnVendaItem_Editar: TButton;
+    btnVendaItem_Voltar: TButton;
+    actVendaItem_Cancela: TAction;
+    btnVendaItem_Cancela: TButton;
+    actVendaItem_Salvar: TAction;
+    btnVendaItem_Salvar: TButton;
+    btnVendaItem_Add: TButton;
+    cardVendaFinal: TCard;
+    actVender_Vender: TAction;
+    actVender_Voltar: TAction;
+    Button1: TButton;
+    lcbVendaItem_MaterialDesc: TDBLookupComboBox;
+    Label13: TLabel;
+    edtVendaItem_ValorTotal: TDBEdit;
+    lbNomeTela: TLabel;
+    Label14: TLabel;
+    DBEdit11: TDBEdit;
+    Label15: TLabel;
+    DBEdit12: TDBEdit;
+    Label17: TLabel;
+    DBEdit13: TDBEdit;
+    Label18: TLabel;
+    DBEdit14: TDBEdit;
+    Label19: TLabel;
+    DBEdit15: TDBEdit;
+    Label20: TLabel;
+    Label21: TLabel;
+    DBEdit16: TDBEdit;
+    DBText2: TDBText;
+    DBText3: TDBText;
+    lcbVenda_TipoVenda: TDBLookupComboBox;
+    DBText4: TDBText;
+    Label22: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label27: TLabel;
+    ImageList1: TImageList;
     procedure actHomeExecute(Sender: TObject);
     procedure actUnidadesExecute(Sender: TObject);
     procedure actLayoutExecute(Sender: TObject);
@@ -177,19 +188,9 @@ type
     procedure actMaterialExecute(Sender: TObject);
     procedure actVendasExecute(Sender: TObject);
     procedure rgTipoVendaClick(Sender: TObject);
-    procedure cbxAlunoCloseUp(Sender: TObject);
-    procedure cbxMaterialCloseUp(Sender: TObject);
     procedure edtData_PagtoExit(Sender: TObject);
-    procedure edtData_VendaExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure edtData_VendaEnter(Sender: TObject);
     procedure edtData_PagtoEnter(Sender: TObject);
-    procedure cbxUnidadeCloseUp(Sender: TObject);
-    procedure actVenderExecute(Sender: TObject);
-    procedure edtDataVendaChange(Sender: TObject);
-    procedure edtDataPagtoChange(Sender: TObject);
-    procedure cbxTipoEntregaChange(Sender: TObject);
-    procedure edtQuantidadeExit(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure actRealizarVendaExecute(Sender: TObject);
     procedure actVendaExecute(Sender: TObject);
@@ -197,11 +198,23 @@ type
     procedure actVenda_NovaExecute(Sender: TObject);
     procedure actVenda_EditarExecute(Sender: TObject);
     procedure act_Venda_salvarExecute(Sender: TObject);
-    procedure actVenda_AddItem2Execute(Sender: TObject);
     procedure actVenda_AddItemExecute(Sender: TObject);
     procedure actVenda_ExcluirExecute(Sender: TObject);
     procedure actVenda_CancelaExecute(Sender: TObject);
     procedure grConsultaVendaCellClick(Column: TColumn);
+    procedure grConsultaVendaDblClick(Sender: TObject);
+    procedure actVendaItem_VoltaExecute(Sender: TObject);
+    procedure actVendaItem_removeExecute(Sender: TObject);
+    procedure actVendaItem_FinalVendaExecute(Sender: TObject);
+    procedure actVendaItem_EditaExecute(Sender: TObject);
+    procedure actVendaItem_CancelaExecute(Sender: TObject);
+    procedure actVendaItem_SalvarExecute(Sender: TObject);
+    procedure actVendaItem_AddExecute(Sender: TObject);
+    procedure lcbVendaItem_MaterialDescCloseUp(Sender: TObject);
+    procedure edtVendaItem_QuantidadeExit(Sender: TObject);
+    procedure DBGrid4DblClick(Sender: TObject);
+    procedure CardPanelMainCardChange(Sender: TObject; PrevCard,
+      NextCard: TCard);
 
   private
     FDescontoFreq: Double;
@@ -218,19 +231,14 @@ type
     function CalcularDescontoFreq: Double;
     function CalcularJuros(pValor: Currency; pDataVenda, pDataPagto: TDateTime; out pDescontoAvista: Currency): Currency;
     function QuantidadeDiasUteis(DataInicial, DataFinal: TDateTime): Integer;
-    function CalcularValorMaterialVenda: Currency;
-    procedure CalculaVenda;
-    procedure AtualizarVenda;
-    procedure AtualizarVendaItem(var pVendaItem: TVendaItemModel);
-    procedure AtualizaTotalizadores;
-    procedure RealizarVenda;
+    function getValorMaterialVenda: Currency;
     function CalcularFreteVenda: Double;
     function ExtractNumbers(const Str: string): string;
     function CalcularPesoVendaItem: Double;
     function CalcularPesoVenda: Double;
     function GetAction: TCrudAction;
-    procedure SpdBtnSairClick(Sender: TObject);
     procedure ControleViewVenda(pVendaAcao: TVendaAction);
+    procedure ControleVendaItem(pVendaItemAcao: TVendaItemAction);
     { Private declarations }
   public
     { Public declarations }
@@ -247,54 +255,15 @@ uses
 
 {$R *.dfm}
 
-procedure TfrmMain.actVenda_AddItem2Execute(Sender: TObject);
-var aLVitem: TListItem;
-    aVendaItem: TVendaItemModel;
-begin
-
-  try
-    AtualizarVenda;
-    AtualizarVendaItem(FVendaItem);
-
-    if FVendaItem.ID_Material <= 0 then
-      Exit;
-
-    aLVitem := lvVendaItem.Items.Add;
-    aLVitem.Caption := Format('%3.d - %s',[FVendaItem.ID_Material, FVendaItem.NomeMaterial]);
-    aLVitem.SubItems.Add(Format('%4.d',[FVendaItem.Quantidade]));
-    aLVitem.SubItems.Add(Format('%m',[FVendaItem.Valor_Unitario]));
-    aLVitem.SubItems.Add(Format('%m',[FVendaItem.Valor_VendaItem]));
-    aLVitem.SubItems.Add(Format('%n Kg',[FVendaItem.Peso_VendaItem]));
-
-
-    aVendaItem := TVendaItemModel.Create;
-    aVendaItem.ID_VendaItem    := FVendaItem.ID_VendaItem;
-    aVendaItem.ID_Material     := FVendaItem.ID_Material;
-    aVendaItem.Quantidade      := FVendaItem.Quantidade;
-    aVendaItem.Valor_Unitario  := FVendaItem.Valor_Unitario;
-    aVendaItem.Valor_VendaItem := FVendaItem.Valor_VendaItem;
-    aVendaItem.Peso_VendaItem  := FVendaItem.Peso_VendaItem;
-    aVendaItem.NomeMaterial    := FVendaItem.NomeMaterial;
-
-    FVenda.ListaVendaItem.Add(aVendaItem);
-
-    AtualizaTotalizadores();
-  finally
-    cbxMaterial.KeyValue := Null;
-    edtQuantidade.Text := Format('%4.d',[0]);
-    edtValorUnitario.Text := Format('%m',[0.0]);
-    edtValorTotalItem.Text := Format('%m',[0.0]);
-    lbPeso.Caption :=  Format('%n Kg',[0.0]);
-  end;
-
-
-end;
-
 procedure TfrmMain.actVenda_AddItemExecute(Sender: TObject);
 begin
-//  if Validouos Campos then
-    ControleViewVenda(vaPost);
-    CardPanelMain.ActiveCard := cardVendaItem;
+  if not dmCrudSimples.qryConsultaVendaID_Venda.IsNull then
+  begin
+     CardPanelMain.ActiveCard := cardVendaItem;
+
+     ControleVendaItem(viSelect);
+  end;
+
 end;
 
 procedure TfrmMain.actVenda_CancelaExecute(Sender: TObject);
@@ -306,7 +275,6 @@ end;
 procedure TfrmMain.actVenda_EditarExecute(Sender: TObject);
 begin
    ControleViewVenda(vaEdit);
-
 end;
 
 procedure TfrmMain.actVenda_ExcluirExecute(Sender: TObject);
@@ -373,124 +341,60 @@ begin
   CardPanelMain.ActiveCard := cardVendaItem;
 end;
 
+procedure TfrmMain.actVendaItem_AddExecute(Sender: TObject);
+begin
+  ControleVendaItem(viInsert);
+end;
+
+procedure TfrmMain.actVendaItem_CancelaExecute(Sender: TObject);
+begin
+ ControleVendaItem(viCancel);
+end;
+
+procedure TfrmMain.actVendaItem_EditaExecute(Sender: TObject);
+begin
+ ControleVendaItem(viEdit);
+end;
+
+procedure TfrmMain.actVendaItem_FinalVendaExecute(Sender: TObject);
+begin
+  ControleVendaItem(viVendaItem);
+  CardPanelMain.ActiveCard := cardVendaFinal;
+end;
+
+procedure TfrmMain.actVendaItem_removeExecute(Sender: TObject);
+begin
+  ControleVendaItem(viDelete);
+end;
+
+procedure TfrmMain.actVendaItem_SalvarExecute(Sender: TObject);
+begin
+ ControleVendaItem(viPost);
+end;
+
+procedure TfrmMain.actVendaItem_VoltaExecute(Sender: TObject);
+begin
+//   if (dmCrudSimples.qryVendaItem.State in [dsOpening, dsEdit, dsInsert]) then
+//   begin
+//     ShowMessage('Não é possível ');
+//
+//   end
+//   else
+   begin
+     ControleVendaItem(viCancel);
+     CardPanelMain.ActiveCard := cardVenda;
+   end;
+end;
+
 procedure TfrmMain.actVendasExecute(Sender: TObject);
 begin
    CardPanelMain.ActiveCard := cardVendaConsulta;
-end;
-
-procedure TfrmMain.actVenderExecute(Sender: TObject);
-begin
-  CardPanelMain.ActiveCard := cardVendas;
-
-  FVenda := TVendaModel.Create;
-  FVendaItem := TVendaItemModel.Create;
-
-  FVendaItemDao := TVendaItemDAO.Create(dmCrudSimples.connectionSQL);
-  FVendaDao := TVendaDAO.Create(dmCrudSimples.connectionSQL);
 end;
 
 procedure TfrmMain.act_Venda_salvarExecute(Sender: TObject);
 begin
 
   ControleViewVenda(vaPost);
-end;
-
-procedure TfrmMain.AtualizarVenda;
-begin
-   if not Assigned(FVenda) then
-     FVenda := TVendaModel.Create;
-
-   FVenda.ID_Unidade := StrToInt(VarToStrDef(cbxUnidade.KeyValue,'0'));
-   FVenda.ID_Aluno :=  StrToInt(VarToStrDef(cbxAluno.KeyValue,'0'));
-   FVenda.Tipo_Entrega := cbxTipoEntrega.ItemIndex;
-
-   if edtDataVenda.DateTime = 0 then
-   begin
-      edtDataVenda.DateTime := DateOf(Now);
-      FVenda.Data_Venda := edtDataVenda.DateTime;
-   end
-   else
-     FVenda.Data_Venda := DateOf(edtDataVenda.DateTime);
-
-   if edtDataPagto.DateTime = 0 then
-   begin
-      edtDataPagto.DateTime := DateOf(Now);
-      FVenda.Data_Pagto := edtDataPagto.DateTime;
-   end
-   else
-     FVenda.Data_Pagto := DateOf(edtDataPagto.DateTime);
-
-   FVenda.Peso_Venda := CalcularPesoVenda();
-   edtVendaPesoTotal.Text := Format('%n Kg',[FVenda.Peso_Venda ]);
-
-   if FVenda.Tipo_Entrega = 2 then
-     FVenda.Valor_Frete := CalcularFreteVenda()
-   else
-     FVenda.Valor_Frete := 0;
-
-   edtFrete.Text := Format('%m',[FVenda.Valor_Frete]);
-
-   AtualizaTotalizadores();
-end;
-
-procedure TfrmMain.AtualizarVendaItem(var pVendaItem: TVendaItemModel);
-begin
-
-  pVendaItem.ID_Material := StrToInt(VarToStrDef(cbxMaterial.KeyValue,'0'));
-  if StrToIntDef(edtQuantidade.Text,0) = 0 then
-    edtQuantidade.Text := '1';
-
-
-  pVendaItem.NomeMaterial    := cbxMaterial.Text;
-  pVendaItem.Quantidade      := StrToIntDef(edtQuantidade.Text,1);
-  pVendaItem.Valor_Unitario  := CalcularValorMaterialVenda();
-  edtValorUnitario.Text      := Format('%m',[pVendaItem.Valor_Unitario]);
-  pVendaItem.Valor_VendaItem := pVendaItem.Valor_Unitario * pVendaItem.Quantidade;
-  edtValorTotalItem.Text     := Format('%m',[pVendaItem.Valor_VendaItem]);
-  pVendaItem.Peso_VendaItem  := pVendaItem.Quantidade * CalcularPesoVendaItem();
-  lbPeso.Caption             := Format('%n Kg',[pVendaItem.Peso_VendaItem]);
-
-  AtualizaTotalizadores();
-end;
-
-procedure TfrmMain.AtualizaTotalizadores;
-var aVendaItem: TVendaItemModel;
-    aPeso: Double;
-    aValor: Currency;
-begin
-  aValor := 0;
-  aPeso := 0;
-
-  for aVendaItem in FVenda.ListaVendaItem do
-  begin
-    aValor := aValor + aVendaItem.Valor_VendaItem;
-    aPeso := aPeso + aVendaItem.Peso_VendaItem;
-
-  end;
-
-    FVenda.Valor_Juros := CalcularJuros(aValor, FVenda.Data_Venda, FVenda.Data_Pagto, FValor_Desconto);
-    edtVendaJuros.Text := Format('%m', [FVenda.Valor_Juros ]);
-
-    if (cbxUnidade.Text <> EmptyStr) and (cbxAluno.Text <> EmptyStr) then
-    begin
-      FVenda.Valor_Desconto := FValor_Desconto + CalcularDescontoFreq();
-      edtDesconto.Text := Format('%m',[FVenda.Valor_Desconto]);
-    end
-    else
-    begin
-      FVenda.Valor_Desconto := 0;
-      edtDesconto.Text := Format('%m',[0.0]);
-    end;
-
-
-    FVenda.Peso_Venda := aPeso;
-    edtVendaPesoTotal.Text :=  Format('%n Kg',[ FVenda.Peso_Venda]);
-
-    FVenda.Valor_TotalCompra := aValor;
-    edtVendaValorTotal.Text := Format('%m',[FVenda.Valor_TotalCompra]);
-
-    FVenda.Valor_Final := (FVenda.Valor_TotalCompra + + FVenda.Valor_Frete + FVenda.Valor_Juros) - FVenda.Valor_Desconto;
-    edtVendaValorFinal.Text := Format('%m',[FVenda.Valor_Final]);
 end;
 
 function TfrmMain.CalcularDescontoFreq: Double;
@@ -528,7 +432,7 @@ function TfrmMain.CalcularFreteVenda: Double;
 var aQry: TFDQuery;
 begin
   Result := 0;
-  if (cbxTipoEntrega.ItemIndex = 2) and (cbxAluno.KeyValue <> Null) then
+  if (true) then
   begin
 
      aQry := TFDQuery.Create(nil);
@@ -541,7 +445,7 @@ begin
          aQry.SQL.Add('INNER JOIN Aluno A');
          aQry.SQL.Add('ON u.ID_UF = a.ID_UF');
          aQry.SQL.Add('WHERE A.ID_Aluno = :pID_Aluno');
-         aQry.Params.ParamByName('pID_Aluno').Value := StrToInt(VarToStrDef(cbxAluno.KeyValue,'0'));
+         aQry.Params.ParamByName('pID_Aluno').Value := StrToInt(VarToStrDef(1,'0'));
          aQry.Open;
 
          if aQry.RecordCount > 0 then
@@ -581,7 +485,7 @@ begin
          aQry.SQL.Add('SELECT COALESCE(m.Peso,0) peso');
          aQry.SQL.Add('FROM Material m');
          aQry.SQL.Add('WHERE m.ID_Material = :pID_Material');
-         aQry.Params.ParamByName('pID_Material').Value := StrToInt(VarToStrDef(cbxMaterial.KeyValue,'0'));
+         aQry.Params.ParamByName('pID_Material').Value := StrToInt(VarToStrDef(1,'0'));
          aQry.Open;
 
          if aQry.RecordCount > 0 then
@@ -596,6 +500,12 @@ begin
      except on E: Exception do
      end;
 
+end;
+
+procedure TfrmMain.CardPanelMainCardChange(Sender: TObject; PrevCard,
+  NextCard: TCard);
+begin
+  lbNomeTela.Caption := CardPanelMain.ActiveCard.Caption;
 end;
 
 function TfrmMain.CalcularJuros(pValor: Currency; pDataVenda, pDataPagto: TDateTime; out pDescontoAvista: Currency): Currency;
@@ -615,7 +525,7 @@ begin
 
 end;
 
-function TfrmMain.CalcularValorMaterialVenda: Currency;
+function TfrmMain.getValorMaterialVenda: Currency;
 var aQry: TFDQuery;
 begin
   Result := 0;
@@ -626,7 +536,7 @@ begin
          aQry.Close;
          aQry.SQL.Clear;
          aQry.SQL.Add('SELECT M.VALOR_VENDA VALOR FROM MATERIAL M WHERE M.ID_MATERIAL = :PID_MATERIAL');
-         aQry.Params.ParamByName('PID_MATERIAL').Value := StrToInt(VarToStrDef(cbxMaterial.KeyValue,'-1'));;
+         aQry.Params.ParamByName('PID_MATERIAL').Value := StrToInt(VarToStrDef(dmCrudSimples.qryVendaItemID_Material.Value,'-1'));;
          aQry.Open;
 
          if aQry.RecordCount > 0 then
@@ -641,33 +551,262 @@ begin
      end;
 end;
 
-procedure TfrmMain.CalculaVenda;
+procedure TfrmMain.ControleVendaItem(pVendaItemAcao: TVendaItemAction);
+const
+  CDELETE = 'Excluir o item de venda?';
+
+  procedure ControleCamposItenVenda(pEnable: Boolean);
+  begin
+    edtVendaItem_Quantidade.Enabled := pEnable;
+    edtVendaItem_ValorUnitario.Enabled := pEnable;
+    edtVendaItem_Peso.Enabled := pEnable;
+    edtVendaItem_ValorTotal.Enabled := pEnable;
+    lcbVendaItem_MaterialDesc.Enabled := pEnable;
+  end;
 begin
 
-end;
+  dmCrudSimples.qryConsultaVendaItem.Active := True;
+  dmCrudSimples.qryConsultaVendaItem.Close;
+  dmCrudSimples.qryConsultaVendaItem.ParamByName('pID_Venda').AsInteger := dmCrudSimples.qryConsultaVendaID_Venda.AsInteger;
+  dmCrudSimples.qryConsultaVendaItem.Open;
 
-procedure TfrmMain.cbxMaterialCloseUp(Sender: TObject);
-begin
-  AtualizarVendaItem(FVendaItem);
-end;
+  case pVendaItemAcao of
+    viInsert: begin
+                if NOT dmCrudSimples.qryVendaItem.Active then
+                 dmCrudSimples.qryVendaItem.Active := True;
 
-procedure TfrmMain.cbxTipoEntregaChange(Sender: TObject);
-begin
-  AtualizarVenda();
-end;
+                btnVendaItem_Add.Enabled := False;
+                btnVendaItem_Remover.Enabled := False;
+                btnVendaItem_Editar.Enabled := False;
+                btnVendaItem_Voltar.Enabled := False;
+                btnVendaItem_Salvar.Enabled := True;
+                btnVendaItem_Cancela.Enabled := True;
+                btnVendaItem_FinalVenda.Enabled := False;
 
-procedure TfrmMain.cbxUnidadeCloseUp(Sender: TObject);
-begin
-   AtualizarVenda;
+                if dmCrudSimples.qryVendaID_Venda.IsNull then
+                begin
+                  ShowMessage('Para inserir um novo item, selecione uma venda primeiro!');
+                  ControleVendaItem(viCancel);
+                  CardPanelMain.ActiveCard := cardVenda;
+
+                  if grConsultaVenda.CanFocus then
+                    grConsultaVenda.SetFocus;
+
+                end;
+
+//                dmCrudSimples.qryVendaItemID_Venda.AsInteger := dmCrudSimples.qryVendaID_Venda.AsInteger;
+
+                ControleCamposItenVenda(True);
+
+                if lcbVendaItem_MaterialDesc.CanFocus then
+                  lcbVendaItem_MaterialDesc.SetFocus;
+
+                dmCrudSimples.qryVendaItem.Insert;
+
+                dmCrudSimples.qryVendaItemID_Venda.AsInteger := dmCrudSimples.qryConsultaVendaID_Venda.AsInteger;
+              end;
+
+    viDelete: begin
+                ControleCamposItenVenda(False);
+                if (dmCrudSimples.qryVendaItem.State in [dsBrowse]) and
+                   (not dmCrudSimples.qryVendaItemID_VendaItem.IsNull) then
+                begin
+
+                  if (MessageDlg(CDELETE, mtConfirmation, mbOKCancel, 0) <> idCancel) then
+                  begin
+                    try
+                      dmCrudSimples.Transaction.StartTransaction;
+                      dmCrudSimples.qryVendaItem.Delete;
+
+                      dmCrudSimples.qryVendaItem.ApplyUpdates();
+//                      dmCrudSimples.qryVendaItem.Refresh;
+                       dmCrudSimples.Transaction.Commit;
+                    except on
+                      E: Exception do
+                        dmCrudSimples.Transaction.Rollback;
+                    end;
+
+
+                  end;
+                end;
+
+                if dmCrudSimples.qryVendaItem.RowsAffected = 0 then
+                begin
+                  ShowMessage('Não foi possivel excluir o item ');
+                  Exit;
+                end;
+
+                ControleVendaItem(viCancel);
+              end;
+
+    viEdit: begin
+                ControleCamposItenVenda(True);
+                if not dmCrudSimples.qryVendaItem.Active then
+                begin
+                  dmCrudSimples.qryVendaItem.Active := True;
+                end;
+
+
+                if (dmCrudSimples.qryVendaItem.State in [dsEdit])
+                and (dmCrudSimples.qryConsultaVendaItemID_VendaItem.AsInteger = dmCrudSimples.qryVendaItemID_VendaItem.AsInteger) then
+                begin
+                  Exit;
+                end;
+
+                btnVendaItem_Add.Enabled := False;
+                btnVendaItem_Remover.Enabled := False;
+                btnVendaItem_Editar.Enabled := False;
+                btnVendaItem_Voltar.Enabled := False;
+                btnVendaItem_Salvar.Enabled := True;
+                btnVendaItem_Cancela.Enabled := True;
+                btnVendaItem_FinalVenda.Enabled := False;
+
+                if lcbVendaItem_MaterialDesc.CanFocus then
+                  lcbVendaItem_MaterialDesc.SetFocus;
+
+                dmCrudSimples.qryVendaItem.Close;
+                dmCrudSimples.qryVendaItem.ParamByName('pID_Venda').AsInteger := dmCrudSimples.qryConsultaVendaID_Venda.AsInteger;
+                dmCrudSimples.qryVendaItem.Open;
+                dmCrudSimples.qryVendaItem.Edit;
+            end;
+
+    viPost: begin
+                ControleCamposItenVenda(False);
+
+                btnVendaItem_Add.Enabled := True;
+                btnVendaItem_Remover.Enabled := True;
+                btnVendaItem_Editar.Enabled := False;
+                btnVendaItem_Voltar.Enabled := True;
+                btnVendaItem_Salvar.Enabled := False;
+                btnVendaItem_Cancela.Enabled := False;
+                btnVendaItem_FinalVenda.Enabled := True;
+
+                try
+                  dmCrudSimples.Transaction.StartTransaction;
+                  dmCrudSimples.qryVendaItem.Post;
+
+                  dmCrudSimples.qryVendaItem.ApplyUpdates();
+//                  dmCrudSimples.qryVendaItem.Refresh;
+                  dmCrudSimples.Transaction.Commit;
+
+
+                except on
+                  E: Exception do
+                    dmCrudSimples.Transaction.Rollback;
+                end;
+
+
+
+                dmCrudSimples.qryConsultaVendaItem.Close;
+                dmCrudSimples.qryConsultaVendaItem.ParamByName('pID_Venda').AsInteger := dmCrudSimples.qryVendaItemID_Venda.AsInteger;
+                dmCrudSimples.qryConsultaVendaItem.Open;
+
+                dmCrudSimples.qryVendaItem.Active := False;
+                dmCrudSimples.qryVendaItem.Close;
+            end;
+    viCancel: begin
+                ControleCamposItenVenda(False);
+                if dmCrudSimples.qryVendaItem.Active then
+                begin
+                  dmCrudSimples.qryVendaItem.Close;
+                  dmCrudSimples.qryVendaItem.Active := False;
+                end;
+
+                btnVendaItem_Add.Enabled :=  (dmCrudSimples.qryConsultaVendaItem.RecordCount >= 0);;
+                btnVendaItem_Remover.Enabled :=  (dmCrudSimples.qryConsultaVendaItem.RecordCount > 0);;
+                btnVendaItem_Editar.Enabled := (dmCrudSimples.qryConsultaVendaItem.RecordCount > 0);;
+                btnVendaItem_Voltar.Enabled := True;
+                btnVendaItem_Salvar.Enabled := False;
+                btnVendaItem_Cancela.Enabled := False;
+                btnVendaItem_FinalVenda.Enabled :=  (dmCrudSimples.qryConsultaVendaItem.RecordCount > 0);;
+
+                if btnVendaItem_Add.CanFocus then
+                  btnVendaItem_Add.SetFocus;
+
+              end;
+    viRefresh: ;
+    viApplyUpdates: ;
+    viCancelUpdates: ;
+    viSelect: begin
+                ControleCamposItenVenda(dmCrudSimples.qryConsultaVenda.RecordCount>0);
+                if dmCrudSimples.qryVendaItem.Active then
+                begin
+                  dmCrudSimples.qryVendaItem.Close;
+                  dmCrudSimples.qryVendaItem.Active := False;
+
+                end;
+
+
+                btnVendaItem_Add.Enabled     := (dmCrudSimples.qryConsultaVendaItem.RecordCount >= 0);
+                btnVendaItem_Remover.Enabled := (dmCrudSimples.qryConsultaVendaItem.RecordCount > 0);
+                btnVendaItem_Editar.Enabled  := (dmCrudSimples.qryConsultaVendaItem.RecordCount > 0);
+                btnVendaItem_FinalVenda.Enabled := (dmCrudSimples.qryConsultaVendaItem.RecordCount > 0);
+                btnVendaItem_Salvar.Enabled  := False;
+                btnVendaItem_Cancela.Enabled := False;
+                btnVendaItem_Voltar.Enabled  := True;
+
+                if btnVendaItem_Add.CanFocus then
+                  btnVendaItem_Add.SetFocus;
+
+
+
+              end;
+
+    viVendaItem: begin
+                    ControleCamposItenVenda(False);
+
+                    if dmCrudSimples.qryVendaItem.Active then
+                     dmCrudSimples.qryVendaItem.Active := False;
+
+                    btnVendaItem_Add.Enabled := False;
+                    btnVendaItem_Remover.Enabled := False;
+                    btnVendaItem_Editar.Enabled := False;
+                    btnVendaItem_Voltar.Enabled := True;
+                    btnVendaItem_Salvar.Enabled := False;
+                    btnVendaItem_Cancela.Enabled := False;
+                    btnVendaItem_FinalVenda.Enabled := False;
+                 end;
+  end;
 end;
 
 procedure TfrmMain.ControleViewVenda(pVendaAcao: TVendaAction);
 const
   CDELETE = 'Excluir Venda?';
   CABORT_VENDANOVA = 'Cancelar a nova Venda?';
-  CABORT_VENDAEDIT = 'Cancelar a edição da Venda?';
+  CABORT_VENDAEDIT = 'Cancelar a edição da Venda %.3d ?';
 begin
   case pVendaAcao of
+    vaSelect: begin
+                if dmCrudSimples.qryVenda.Active then
+                begin
+                if dmCrudSimples.qryVenda.State in [dsInsert] then
+                begin
+                  if (MessageDlg(Format(CABORT_VENDAEDIT, [dmCrudSimples.qryVendaID_Venda.AsInteger]), mtConfirmation, mbOKCancel, 0) <> idCancel) then
+                    ControleViewVenda(vaCancel);
+                    Exit;
+                end
+                else
+                if (dmCrudSimples.qryVenda.State in [dsEdit]) and (dmCrudSimples.qryVendaID_Venda.AsInteger <> dmCrudSimples.qryConsultaVendaID_Venda.AsInteger)  then
+                begin
+                  if (MessageDlg(Format(CABORT_VENDAEDIT, [dmCrudSimples.qryVendaID_Venda.AsInteger]), mtConfirmation, mbOKCancel, 0) <> idCancel) then
+                    ControleViewVenda(vaCancel);
+                    Exit;
+                end;
+                end;
+
+                if NOT dmCrudSimples.qryVenda.Active then
+                 dmCrudSimples.qryVenda.Active := True;
+
+                btnVenda_Nova.Enabled := True;
+                btnVenda_AddItem.Enabled := True;
+                btnVenda_Edita.Enabled := True;
+                btnVenda_Cancela.Enabled := True;
+                btnVenda_Excluir.Enabled := False;
+                btnVenda_Salvar.Enabled := False;
+
+
+              end;
+
     vaInsert: begin
                 if NOT dmCrudSimples.qryVenda.Active then
                  dmCrudSimples.qryVenda.Active := True;
@@ -681,8 +820,9 @@ begin
 
                 if dmCrudSimples.qryVenda.State in [dsEdit] then
                 begin
-                  if (MessageDlg(CABORT_VENDAEDIT, mtConfirmation, mbOKCancel, 0) <> idCancel) then
+                  if (MessageDlg(Format(CABORT_VENDAEDIT, [dmCrudSimples.qryConsultaVendaID_Venda.AsInteger]), mtConfirmation, mbOKCancel, 0) <> idCancel) then
                     dmCrudSimples.qryVenda.Cancel;
+                    Exit;
                 end;
 
                 dmCrudSimples.qryVenda.Insert;
@@ -692,19 +832,34 @@ begin
               end;
 
     vaDelete: begin
+
+                if (dmCrudSimples.qryVenda.State in [dsBrowse]) and
+                   (not dmCrudSimples.qryVendaID_Venda.IsNull) then
+                begin
+
+                  if (MessageDlg(CDELETE, mtConfirmation, mbOKCancel, 0) <> idCancel) then
+                  begin
+                    try
+                      dmCrudSimples.Transaction.StartTransaction;
+                      dmCrudSimples.qryVenda.Delete;
+
+                      dmCrudSimples.qryVenda.ApplyUpdates();
+                      dmCrudSimples.Transaction.Commit;
+
+
+                    except on
+                      E: Exception do
+                        dmCrudSimples.Transaction.Rollback;
+                    end;
+                  end;
+                end;
+
                 btnVenda_Nova.Enabled := True;
                 btnVenda_AddItem.Enabled := False;
                 btnVenda_Edita.Enabled := False;
                 btnVenda_Cancela.Enabled := False;
                 btnVenda_Excluir.Enabled := False;
                 btnVenda_Salvar.Enabled := False;
-
-                if (MessageDlg(CDELETE, mtConfirmation, mbOKCancel, 0) <> idCancel) then
-                begin
-                  dmCrudSimples.qryVenda.Delete;
-                  dmCrudSimples.qryVenda.ApplyUpdates();
-                  dmCrudSimples.qryVenda.Refresh;
-                end;
 
 
                 dmCrudSimples.qryVenda.Active := False;
@@ -725,7 +880,13 @@ begin
                 if dmCrudSimples.qryVenda.State in [dsInsert] then
                 begin
                   if (MessageDlg(CABORT_VENDANOVA, mtConfirmation, mbOKCancel, 0) <> idCancel) then
-                    dmCrudSimples.qryVenda.Cancel;
+                    ControleViewVenda(vaCancel);
+                end;
+
+                if (dmCrudSimples.qryVendaItem.State in [dsEdit])
+                and (dmCrudSimples.qryConsultaVendaID_Venda.AsInteger = dmCrudSimples.qryVendaID_Venda.AsInteger) then
+                begin
+                  Exit;
                 end;
 
 
@@ -751,6 +912,8 @@ begin
                 end;
 
                 dmCrudSimples.qryVenda.Edit;
+//                dmCrudSimples.qryConsultaVenda.Active := False;
+
 
                   if lcbUnidade.CanFocus then
                     lcbUnidade.SetFocus;
@@ -764,10 +927,18 @@ begin
                 btnVenda_Excluir.Enabled := True;
                 btnVenda_Salvar.Enabled := False;
 
-                dmCrudSimples.qryVenda.Post;
-//                dmCrudSimples.qryVenda.ApplyUpdates();
-//                dmCrudSimples.qryVenda.Refresh;
+                try
+                  dmCrudSimples.Transaction.StartTransaction;
+                  dmCrudSimples.qryVenda.Post;
 
+                  dmCrudSimples.qryVenda.ApplyUpdates();
+                  dmCrudSimples.Transaction.Commit;
+
+
+                except on
+                  E: Exception do
+                    dmCrudSimples.Transaction.Rollback;
+                end;
 
                 dmCrudSimples.qryVenda.Active := False;
               end;
@@ -782,7 +953,13 @@ begin
 
                 dmCrudSimples.qryVenda.Cancel;
                 dmCrudSimples.qryVenda.Active := False;
+                grConsultaVenda.SelectedRows.CurrentRowSelected := False;
+
+                if btnVenda_Nova.CanFocus then
+                  btnVenda_Nova.SetFocus;
+
               end;
+
     vaRefresh: ;
     vaApplyUpdates: begin
                       Exit;
@@ -794,19 +971,41 @@ begin
   end;
 end;
 
+procedure TfrmMain.DBGrid4DblClick(Sender: TObject);
+begin
+
+  ControleVendaItem(viEdit);
+
+end;
+
 procedure TfrmMain.grConsultaVendaCellClick(Column: TColumn);
 begin
-  ControleViewVenda(vaEdit)
+  ControleViewVenda(vaSelect);
 end;
 
-procedure TfrmMain.edtDataPagtoChange(Sender: TObject);
+procedure TfrmMain.grConsultaVendaDblClick(Sender: TObject);
 begin
-  AtualizarVenda;
+  ControleViewVenda(vaEdit);
 end;
 
-procedure TfrmMain.edtDataVendaChange(Sender: TObject);
+procedure TfrmMain.lcbVendaItem_MaterialDescCloseUp(Sender: TObject);
 begin
-  AtualizarVenda;
+  if dmCrudSimples.qryVendaItem.State in [dsInsert,dsEdit] then
+  begin
+    if (dmCrudSimples.qryVendaItemQuantidade.IsNull) or (dmCrudSimples.qryVendaItemQuantidade.AsInteger <= 0) then
+       dmCrudSimples.qryVendaItemQuantidade.AsInteger := 1;
+
+    if edtVendaItem_Quantidade.CanFocus then
+      edtVendaItem_Quantidade.SetFocus;
+
+    dmCrudSimples.qryVendaItemValor_VendaItem.AsCurrency := getValorMaterialVenda();
+    dmCrudSimples.qryVendaItemValor_TotalItem.AsCurrency := dmCrudSimples.qryVendaItemValor_VendaItem.AsCurrency *dmCrudSimples.qryVendaItemQuantidade.AsInteger;
+  end
+  else
+  begin
+    ShowMessage('Ação Cancelada!');
+    ControleVendaItem(viCancel);
+  end;
 end;
 
 procedure TfrmMain.edtData_PagtoEnter(Sender: TObject);
@@ -827,46 +1026,20 @@ begin
     Exit;
   end;
 
-  CalculaVenda;
 end;
 
-procedure TfrmMain.edtData_VendaEnter(Sender: TObject);
+procedure TfrmMain.edtVendaItem_QuantidadeExit(Sender: TObject);
 begin
-  if dmCrudSimples.qryVendaData_Venda.Value = Null then
+  if dmCrudSimples.qryVendaItem.State in [dsInsert,dsEdit] then
   begin
-    dmCrudSimples.qryVendaData_Venda.AsDateTime := DateOf(Now);
-  end;
-
-end;
-
-procedure TfrmMain.edtData_VendaExit(Sender: TObject);
-begin
-  if (DateOf(dmCrudSimples.qryVendaData_Venda.AsDateTime) > DateOf(Now)) then
+    dmCrudSimples.qryVendaItemValor_VendaItem.AsCurrency := getValorMaterialVenda();
+    dmCrudSimples.qryVendaItemValor_TotalItem.AsCurrency := dmCrudSimples.qryVendaItemValor_VendaItem.AsCurrency * dmCrudSimples.qryVendaItemQuantidade.AsInteger;
+  end
+  else
   begin
-    dmCrudSimples.qryVendaData_Venda.AsDateTime := DateOf(Now);
-    ShowMessage('O Sistema não permite venda futura');
-    Exit;
+    ShowMessage('Ação Cancelada!');
+    ControleVendaItem(viCancel);
   end;
-
-  if (DateOf(dmCrudSimples.qryVendaData_Venda.AsDateTime) < DateOf(Now)) then
-  begin
-    dmCrudSimples.qryVendaData_Venda.AsDateTime := DateOf(Now);
-    ShowMessage('O Sistema não permite venda com a data anterior ao dia de hoje');
-    Exit;
-  end;
-
-  CalculaVenda;
-end;
-
-procedure TfrmMain.edtQuantidadeExit(Sender: TObject);
-begin
-  AtualizarVenda();
-  AtualizarVendaItem(FVendaItem);
-end;
-
-procedure TfrmMain.cbxAlunoCloseUp(Sender: TObject);
-begin
-  AtualizarVenda;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -924,28 +1097,6 @@ procedure TfrmMain.rgTipoVendaClick(Sender: TObject);
 begin
   if dmCrudSimples.qryVenda.CanModify then
      dmCrudSimples.qryVenda.Edit;
-end;
-
-procedure TfrmMain.SpdBtnSairClick(Sender: TObject);
-begin
-
-end;
-
-procedure TfrmMain.RealizarVenda;
-var
-  VendaID, VendaItemID, EntregaID: Integer;
-  PesoTotal, ValorTotal, ValorFrete, ValorDesconto, ValorJuros: Double;
-  CodigoRastreio: string;
-begin
-  // Calcular o peso total e o valor total da venda
-  PesoTotal := 0;
-  ValorTotal := 0;
-
-//  for VendaItem in VendaItems do
-//  begin
-//    PesoTotal := PesoTotal + (VendaItem.Quantidade * VendaItem.Peso_VendaItem);
-//    ValorTotal := ValorTotal + (VendaItem.Quantidade * VendaItem.Valor_VendaItem);
-//  end;
 end;
 
 procedure TfrmMain.Validar;
