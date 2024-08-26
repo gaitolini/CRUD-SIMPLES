@@ -1,5 +1,3 @@
-#<!-- slide -->
-
 #Cenário 
 
 Vanessa possui uma rede de escola de idiomas e precisa distribuir ao materiais didáticos usados 
@@ -19,6 +17,7 @@ residência do aluno deveremos incluir o preço do frete que terá um valor fixo
 Como benefício para os alunos que já frequentaram cursos na escola, eles tem descontos 
 progressivos nos materiais. O desconto é proporcional a quantidade de anos que o aluno 
 frequenta a escola. Por exemplo, se um aluno frequenta a escola há 1 ano, terá 10% de desconto. 
+
 Se frequenta a escola há 2 anos, terá 20% e assim por diante, limitado em 50% de desconto. 
 Para os alunos que pagarem os materiais a vista, terão 5% de desconto no valor final da venda. 
 Para os alunos que pediram prazo para pagamento, considerar 0,01% de juros ao dia. Considerar 
